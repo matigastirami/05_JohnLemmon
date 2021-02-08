@@ -1,2 +1,2 @@
-# 05_JohnLemmon
+# 06_JohnLemmon
 Stealth video game based on unity tutorials
