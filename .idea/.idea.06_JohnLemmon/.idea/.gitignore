@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/projectSettingsUpdater.xml
+/.idea.06_JohnLemmon.iml
+/contentModel.xml
+# Datasource local storage ignored files
+/../../../../../../../../:\Workspace\Proyectos Personales\Unity\06_JohnLemmon\.idea\.idea.06_JohnLemmon\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
