@@ -6,13 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class GameEnding : MonoBehaviour
 {
-    public float fadeDuration = 1f, 
+    public float fadeDuration = 3f, 
         timer,
         displayImageDuration;
-    private bool isPlayerAtExit, isPlayerCaught;
+    private bool isPlayerAtExit, 
+        isPlayerCaught,
+        hasAudioPlayed;
 
     [SerializeField] private GameObject player;
     [SerializeField] private CanvasGroup exitImageCanvasGroup, caughtImageCanvasGroup;
+    [SerializeField] private AudioSource exitAudioSource, caughtAudioSource;
     
     // Start is called before the first frame update
     void Start()
@@ -25,11 +28,11 @@ public class GameEnding : MonoBehaviour
     {
         if (isPlayerAtExit)
         {
-            EndLevel(exitImageCanvasGroup, false);
+            EndLevel(exitImageCanvasGroup, false, exitAudioSource);
         }
         else if (isPlayerCaught)
         {
-            EndLevel(caughtImageCanvasGroup, true);
+            EndLevel(caughtImageCanvasGroup, true, caughtAudioSource);
         }
     }
 
@@ -45,8 +48,16 @@ public class GameEnding : MonoBehaviour
     /// Launches an end level image
     /// </summary>
     /// <param name="imageCanvasGroup">Image to show (Exit or caught)</param>
-    public void EndLevel(CanvasGroup imageCanvasGroup, bool doRestart)
+    /// <param name="doRestart">Determine if the game has to restart</param>
+    /// <param name="audioSource">Audio to play on end level</param>
+    public void EndLevel(CanvasGroup imageCanvasGroup, bool doRestart, AudioSource audioSource)
     {
+        if (!hasAudioPlayed)
+        {
+            audioSource.Play();
+            hasAudioPlayed = true;
+        }
+        
         timer += Time.deltaTime;
         imageCanvasGroup.alpha = Mathf.Clamp(timer / fadeDuration, 0, 1);
 

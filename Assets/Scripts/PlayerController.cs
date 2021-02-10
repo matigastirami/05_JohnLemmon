@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 movement;
     private Animator _animator;
     private Rigidbody _rigidbody;
+    private AudioSource _audioSource;
     
     // Props
     [SerializeField] private float turnSpeed = 40f;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
+        _audioSource = GetComponent<AudioSource>();
     }
     
     void FixedUpdate()
@@ -45,8 +47,18 @@ public class PlayerController : MonoBehaviour
         Vector3 desiredForward = Vector3.RotateTowards(transform.forward, movement, turnSpeed * Time.fixedTime, 0f);
 
         rotation = Quaternion.LookRotation(desiredForward);
-        
-        
+
+        if (isWalking)
+        {
+            if (!_audioSource.isPlaying)
+            {
+                _audioSource.Play();
+            }
+        }
+        else
+        {
+            _audioSource.Stop();
+        }
     }
 
     private void OnAnimatorMove()

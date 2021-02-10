@@ -38,8 +38,10 @@ public class WaypointPatrol : MonoBehaviour
         {
             Gizmos.DrawLine(wayPoints[i].position, wayPoints[i + 1].position);
         }
-        
-        Gizmos.DrawLine(wayPoints[0].position, wayPoints[wayPoints.Length - 1].position);
-        
+
+        if (wayPoints.Length > 2)
+        {
+            Gizmos.DrawLine(wayPoints[0].position, wayPoints[wayPoints.Length - 1].position);
+        }
     }
 }
