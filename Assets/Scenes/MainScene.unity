@@ -1824,7 +1824,7 @@ GameObject:
   m_Component:
   - component: {fileID: 795652604}
   m_Layer: 0
-  m_Name: Camera Controllers
+  m_Name: Intro Cameras Controllers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
