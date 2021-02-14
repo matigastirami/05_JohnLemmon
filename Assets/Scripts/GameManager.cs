@@ -24,8 +24,6 @@ public class GameManager : MonoBehaviour
     
     // End singleton config
 
-    private const string HAS_SEEN_INTRO_KEY = "hasSeenIntro";
-    
     public enum GameState
     {
         InGame,
@@ -67,26 +65,48 @@ public class GameManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "MainScene")
         {
-            int hasSeenIntro = PlayerPrefs.GetInt(HAS_SEEN_INTRO_KEY, 0);
-        
-            if (hasSeenIntro == 0)
+            if (_currentState == GameState.InMenu)
+            {
+                StartCoroutine(ShowMainMenu(0));   
+            }
+
+            if (_playableDirector != null)
             {
                 _playableDirector.Play();
+            }
             
-                PlayerPrefs.SetInt(HAS_SEEN_INTRO_KEY, 1);
-            }
-            else
-            {
-                _playableDirector.time = _playableDirector.duration;
-                _playableDirector.Play();
-            }
         }
+    }
+
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "MainScene" && _playableDirector.state == PlayState.Playing && Input.GetKeyDown(KeyCode.Escape))
+        {
+            SkipIntro();
+        }
+    }
+
+    private void SkipIntro()
+    {
+        _playableDirector.time = _playableDirector.duration;
+        _playableDirector.Play();
     }
 
     public void StartGame()
     {
-        SceneManager.LoadScene("MainScene");
-        DisableAllScreens();
+        SceneManager.LoadScene("Loading");
+
+        StartCoroutine(AsyncLoad());
+    }
+
+    IEnumerator AsyncLoad()
+    {
+        AsyncOperation levelLoad = SceneManager.LoadSceneAsync("MainScene");
+
+        while (!levelLoad.isDone)
+        {
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     private void DisableAllScreens()
@@ -110,8 +130,6 @@ public class GameManager : MonoBehaviour
     private IEnumerator ShowMainMenu(float secondsToWait)
     {
         yield return new WaitForSeconds(secondsToWait);
-        
-        DisableAllScreens();
 
         SceneManager.LoadScene("Screens");
     }
@@ -124,13 +142,11 @@ public class GameManager : MonoBehaviour
 
     public void ExitToMainMenu()
     {
-        PlayerPrefs.SetInt(HAS_SEEN_INTRO_KEY, 0);
-        
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
+        //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
 
         DisableAllScreens();
         
-        mainMenuPanel.SetActive(true);
+        //mainMenuPanel.SetActive(true);
 
         StartCoroutine(ShowMainMenu(2));
     }
