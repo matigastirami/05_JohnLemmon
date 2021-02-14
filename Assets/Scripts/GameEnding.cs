@@ -1,31 +1,38 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine;using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 
 public class GameEnding : MonoBehaviour
 {
-    public float fadeDuration = 3f, 
-        timer,
+    public float fadeDuration = 5f, 
         displayImageDuration;
+    private float timer;
     private bool isPlayerAtExit, 
         isPlayerCaught,
         hasAudioPlayed;
+    private GameManager _gameManager;
+
+    private bool hasCalledGameOver, hasCalledGameExit;
 
     [SerializeField] private GameObject player;
     [SerializeField] private CanvasGroup exitImageCanvasGroup, caughtImageCanvasGroup;
     [SerializeField] private AudioSource exitAudioSource, caughtAudioSource;
-    
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        
+        _gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+        
         if (isPlayerAtExit)
         {
             EndLevel(exitImageCanvasGroup, false, exitAudioSource);
@@ -50,7 +57,7 @@ public class GameEnding : MonoBehaviour
     /// <param name="imageCanvasGroup">Image to show (Exit or caught)</param>
     /// <param name="doRestart">Determine if the game has to restart</param>
     /// <param name="audioSource">Audio to play on end level</param>
-    public void EndLevel(CanvasGroup imageCanvasGroup, bool doRestart, AudioSource audioSource)
+    public void EndLevel(CanvasGroup imageCanvasGroup, bool isGameOver, AudioSource audioSource)
     {
         if (!hasAudioPlayed)
         {
@@ -63,13 +70,24 @@ public class GameEnding : MonoBehaviour
 
         if (timer > fadeDuration + displayImageDuration)
         {
-            if (doRestart)
+            /*if (doRestart)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
             else
             {
                 Application.Quit();
+            }*/
+            if (isGameOver && !hasCalledGameOver)
+            {
+                _gameManager.GameOver();
+                hasCalledGameOver = true;
+            }
+            
+            if (!isGameOver && !hasCalledGameExit)
+            {
+                _gameManager.ShowCredits();
+                hasCalledGameExit = true;
             }
         }
     }
