@@ -222,6 +222,7 @@ MonoBehaviour:
   mainMenuPanel: {fileID: 1719788492}
   creditsPanel: {fileID: 1719788491}
   confirmModalPanel: {fileID: 1719788490}
+  pausePanel: {fileID: 0}
 --- !u!4 &928871843
 Transform:
   m_ObjectHideFlags: 0
@@ -243,6 +244,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2692138415586264413, guid: b60398c11a002f94a8fe765e14ccba31,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2692138415990741061, guid: b60398c11a002f94a8fe765e14ccba31,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

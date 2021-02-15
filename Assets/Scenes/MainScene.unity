@@ -664,6 +664,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &579187081 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 579187081, guid: b60398c11a002f94a8fe765e14ccba31,
+    type: 3}
+  m_PrefabInstance: {fileID: 2692138415651079205}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &650206466
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,6 +751,7 @@ MonoBehaviour:
   mainMenuPanel: {fileID: 69403000}
   creditsPanel: {fileID: 114922490}
   confirmModalPanel: {fileID: 488906265}
+  pausePanel: {fileID: 579187081}
 --- !u!4 &654894309
 Transform:
   m_ObjectHideFlags: 0
@@ -771,7 +778,7 @@ GameObject:
   - component: {fileID: 656348104}
   m_Layer: 0
   m_Name: Ambient
-  m_TagString: Untagged
+  m_TagString: Ambient Sound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1768,7 +1775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 1166642023}
-  m_PathPosition: 0.1501923
+  m_PathPosition: 0.889266
   m_PositionUnits: 2
   m_PathOffset: {x: 0.47, y: 0.67758864, z: 0.10641987}
   m_XDamping: 1.5
@@ -2588,7 +2595,7 @@ GameObject:
   - component: {fileID: 1061745537}
   m_Layer: 0
   m_Name: Escape
-  m_TagString: Untagged
+  m_TagString: Event Sound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7603,7 +7610,7 @@ GameObject:
   - component: {fileID: 2098041758}
   m_Layer: 0
   m_Name: Caught
-  m_TagString: Untagged
+  m_TagString: Event Sound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8170,6 +8177,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 579187081, guid: b60398c11a002f94a8fe765e14ccba31, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1245238792, guid: b60398c11a002f94a8fe765e14ccba31, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 654894308}
+    - target: {fileID: 1738535248, guid: b60398c11a002f94a8fe765e14ccba31, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1738535248, guid: b60398c11a002f94a8fe765e14ccba31, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 654894308}
     - target: {fileID: 2692138415214436506, guid: b60398c11a002f94a8fe765e14ccba31,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

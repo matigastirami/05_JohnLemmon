@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -30,7 +31,8 @@ public class GameManager : MonoBehaviour
         GameOver,
         Loading,
         Paused,
-        InMenu
+        InMenu,
+        PlayingCinematic
     }
     
     public enum Difficulty
@@ -56,12 +58,17 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private GameObject confirmModalPanel;
 
-    
+    [SerializeField] private GameObject pausePanel;
+
+    private AudioSource[] _audioSources;
 
     // Start is called before the first frame update
     void Start()
     {
         //SceneManager.LoadScene("Screens");
+        
+
+        _audioSources = FindObjectsOfType<AudioSource>().Where(source => source.gameObject.CompareTag("Event Sound") == false).ToArray();
 
         if (SceneManager.GetActiveScene().name == "MainScene")
         {
@@ -80,21 +87,43 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "MainScene" && _playableDirector.state == PlayState.Playing && Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SkipIntro();
+            if (SceneManager.GetActiveScene().name == "MainScene")
+            {
+                if (_playableDirector.state == PlayState.Playing)
+                {
+                    SkipIntro();
+
+                    _currentState = GameState.InGame;
+                }
+                else
+                {
+                    if (_currentState == GameState.InGame)
+                    {
+                        TogglePause(GameState.Paused);
+                    }
+                    else
+                    {
+                        TogglePause(GameState.InGame);   
+                    }
+                }
+            }
         }
+        
     }
 
     private void SkipIntro()
     {
-        _playableDirector.time = _playableDirector.duration;
+        _playableDirector.time = _playableDirector.duration - 0.1;
         _playableDirector.Play();
     }
 
     public void StartGame()
     {
         SceneManager.LoadScene("Loading");
+
+        _currentState = GameState.InGame;
 
         StartCoroutine(AsyncLoad());
     }
@@ -116,13 +145,15 @@ public class GameManager : MonoBehaviour
         creditsPanel.SetActive(false);
         
         confirmModalPanel.SetActive(false);
+        
+        pausePanel.SetActive(false);
     }
 
     public void GameOver()
     {
-        //StartCoroutine(WaitSeconds(5));
-        
         DisableAllScreens();
+
+        _currentState = GameState.GameOver;
         
         confirmModalPanel.SetActive(true);
     }
@@ -142,11 +173,9 @@ public class GameManager : MonoBehaviour
 
     public void ExitToMainMenu()
     {
-        //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
-
         DisableAllScreens();
-        
-        //mainMenuPanel.SetActive(true);
+
+        _currentState = GameState.InMenu;
 
         StartCoroutine(ShowMainMenu(2));
     }
@@ -163,5 +192,31 @@ public class GameManager : MonoBehaviour
     public void OnCloseGame()
     {
         Application.Quit();
+    }
+
+    public void ToggleAudio(bool pause)
+    {
+        foreach (AudioSource audio in _audioSources)
+        {
+            if (pause)
+            {
+                audio.Pause();
+            }
+            else
+            {
+                audio.Play();
+            }
+        }
+    }
+
+    public void TogglePause(GameState stateTo)
+    {
+        _currentState = stateTo;
+        
+        Time.timeScale = stateTo == GameState.Paused ? 0 : 1;
+        
+        pausePanel.SetActive(stateTo == GameState.Paused);
+
+        ToggleAudio(stateTo == GameState.Paused);
     }
 }
