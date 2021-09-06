@@ -189,7 +189,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &928871841
+--- !u!1 &509625892
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,39 +197,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 928871843}
-  - component: {fileID: 928871842}
+  - component: {fileID: 509625894}
+  - component: {fileID: 509625893}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: 'GameManager '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &928871842
+--- !u!114 &509625893
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 928871841}
+  m_GameObject: {fileID: 509625892}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35671b58d60095d4aafb4a06682a1b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _playableDirector: {fileID: 0}
+  _currentState: 2
   mainMenuPanel: {fileID: 1719788492}
   creditsPanel: {fileID: 1719788491}
   confirmModalPanel: {fileID: 1719788490}
-  pausePanel: {fileID: 0}
---- !u!4 &928871843
+  pausePanel: {fileID: 671316752}
+--- !u!4 &509625894
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 928871841}
+  m_GameObject: {fileID: 509625892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 537.7494, y: 296.3795, z: -0.36901855}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -237,6 +238,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &671316752 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 579187081, guid: b60398c11a002f94a8fe765e14ccba31,
+    type: 3}
+  m_PrefabInstance: {fileID: 1719788489}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1719788489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -244,21 +251,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2692138415586264413, guid: b60398c11a002f94a8fe765e14ccba31,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 1738535248, guid: b60398c11a002f94a8fe765e14ccba31, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 509625893}
     - target: {fileID: 2692138415990741061, guid: b60398c11a002f94a8fe765e14ccba31,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 928871842}
+      objectReference: {fileID: 509625893}
+    - target: {fileID: 2692138416856540457, guid: b60398c11a002f94a8fe765e14ccba31,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2692138416856540457, guid: b60398c11a002f94a8fe765e14ccba31,
+        type: 3}
+      propertyPath: m_isRightToLeft
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2692138416856540457, guid: b60398c11a002f94a8fe765e14ccba31,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2692138416856540457, guid: b60398c11a002f94a8fe765e14ccba31,
+        type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 2692138416856540457, guid: b60398c11a002f94a8fe765e14ccba31,
+        type: 3}
+      propertyPath: m_enableVertexGradient
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2692138416878203411, guid: b60398c11a002f94a8fe765e14ccba31,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 928871842}
+      objectReference: {fileID: 509625893}
     - target: {fileID: 2692138417100917139, guid: b60398c11a002f94a8fe765e14ccba31,
         type: 3}
       propertyPath: m_Name

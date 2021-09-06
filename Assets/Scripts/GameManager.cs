@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private PlayableDirector _playableDirector;
 
-    private GameState _currentState = GameState.Loading;
+    public GameState _currentState = GameState.Loading;
 
     public GameState CurrentState
     {
@@ -99,14 +99,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    if (_currentState == GameState.InGame)
-                    {
-                        TogglePause(GameState.Paused);
-                    }
-                    else
-                    {
-                        TogglePause(GameState.InGame);   
-                    }
+                    SetGameState(_currentState == GameState.InGame);
                 }
             }
         }
@@ -147,6 +140,8 @@ public class GameManager : MonoBehaviour
         confirmModalPanel.SetActive(false);
         
         pausePanel.SetActive(false);
+        
+        
     }
 
     public void GameOver()
@@ -168,7 +163,12 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Debug.Log("Restart pressed");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
+        SetGameState(false);
+        
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        StartCoroutine(AsyncLoad());
     }
 
     public void ExitToMainMenu()
@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void ToggleAudio(bool pause)
+    private void ToggleAudio(bool pause)
     {
         foreach (AudioSource audio in _audioSources)
         {
@@ -209,14 +209,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void TogglePause(GameState stateTo)
+    public void SetGameState(bool pause)
     {
-        _currentState = stateTo;
+        _currentState = pause ? GameState.Paused : GameState.InGame;
         
-        Time.timeScale = stateTo == GameState.Paused ? 0 : 1;
+        Time.timeScale = pause ? 0 : 1;
         
-        pausePanel.SetActive(stateTo == GameState.Paused);
+        pausePanel.SetActive(pause);
 
-        ToggleAudio(stateTo == GameState.Paused);
+        ToggleAudio(pause);
     }
 }
